@@ -17,14 +17,17 @@ def chooseSong():
 	
 	songLink = []
 	while True:
-		choice = input("\n\nPlease enter song numbers ( ex : 1 , 10 , 25)：")
+		choice = input("\n\nPlease enter song numbers ( ex : 1 , 10 , 25) or 'All' to download：")
 		try:
-			choice = choice.split(',')
-			for i in choice:
-				songLink.append(list(allSong.items())[int(i)-1])
+			if choice == "All":
+				songLink = list(allSong.items())
+			else:
+				choice = choice.split(',')
+				for i in choice:
+					songLink.append(list(allSong.items())[int(i)-1])
 			break
 		except Exception as e:
-			print("\nError,Please try again. ( ex : 1 , 10 , 25)")
+			print("\nError,Please try again. ( ex : 1 , 10 , 25 )")
 			pass
 
 	return songLink
