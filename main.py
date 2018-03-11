@@ -4,6 +4,7 @@ import sys
 import time
 import os
 
+#Choose songs you want
 def chooseSong():
 	allSong = getUrl()
 	print('\n======================== Song List ========================\n\nDownload songs from "http://musicforprogramming.net/"\n\n===========================================================\n')
@@ -32,6 +33,7 @@ def chooseSong():
 
 	return songLink
 
+#Get songs downloadLinks from website(http://musicforprogramming.net/)
 def getUrl():
 	head = {
 		'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36'
@@ -49,6 +51,7 @@ def getUrl():
 
 	return musicLinks
 
+#Download mp3 of the link
 def downloadMP3(link):
 	folder = folderDefine()
 	fileName , url = link
@@ -60,6 +63,7 @@ def downloadMP3(link):
 		f.close()
 		return fileName
 
+#Use "for loop" to download one by one 
 def forloopDownload():
 	urls = getUrl()
 	complete = 0
@@ -69,6 +73,7 @@ def forloopDownload():
 		complete += 1
 		completeInTerminal(complete,len(urls))
 
+#Use gevent to download
 import gevent
 from gevent import monkey
 def geventDownload():
@@ -84,11 +89,13 @@ def geventDownload():
 		complete += 1
 		completeInTerminal(complete,len(urls))
 
+#ProgressBar on Terminal  
 def completeInTerminal(complete,total):
 	done = int(30 * complete / total)
 	sys.stdout.write("\rCompleted：( %s / %s )[ %s%s ]" % (complete, total, '#'*done, '-'*(30 - done)))
 	sys.stdout.flush()
 
+#Find the folder location
 def folderDefine():
 	#if執行exe檔
     if getattr(sys, 'frozen', False):
