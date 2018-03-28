@@ -3,11 +3,13 @@ from bs4 import BeautifulSoup
 import sys
 import time
 import os
+import gevent
+from gevent import monkey
 
 #Choose songs you want
 def chooseSong():
 	allSong = getUrl()
-	print('\n======================== Song List ========================\n\nDownload songs from "http://musicforprogramming.net/"\n\n===========================================================\n')
+	print('\n{0} Song List {0}\n\nDownload songs from "http://musicforprogramming.net/"\n\n{1}\n'.format('='*24,'='*59))
 	for name in allSong.keys():
 		index = list(allSong.keys()).index(name)
 		#print(list(allSongName).index(i) % 5)
@@ -16,17 +18,22 @@ def chooseSong():
 		else:
 			print('{0: <30}'.format(name), end=' ')
 	
-	songLink = []
 	while True:
-		choice = input("\n\nPlease enter song numbers ( ex : 1 , 10 , 25) or 'All' to download：")
+		songLink = []
+		choice = input("\n\nPlease enter Music numbers ( ex : 1 , 10 , 25) or 'All' to download：")
 		try:
 			if choice == "All":
 				songLink = list(allSong.items())
 			else:
 				choice = choice.split(',')
 				for i in choice:
-					songLink.append(list(allSong.items())[int(i)-1])
-			break
+					index = int(i)
+					if index in range(1,len(allSong)+1) :
+					    songLink.append(list(allSong.items())[index-1])
+					else :
+						print('Invalid Music number : "{0}"'.format(i))
+			if songLink:
+				break
 		except Exception as e:
 			print("\nError,Please try again. ( ex : 1 , 10 , 25 )")
 			pass
@@ -53,7 +60,7 @@ def getUrl():
 
 #Download mp3 of the link
 def downloadMP3(link):
-	folder = folderDefine()
+	folder = folderDefine("CodingMusic",True)
 	fileName , url = link
 	r = requests.get(url, stream=True)
 	with open('{0}/{1}.mp3'.format(folder, fileName), 'wb') as f:
@@ -74,8 +81,6 @@ def forloopDownload():
 		completeInTerminal(complete,len(urls))
 
 #Use gevent to download
-import gevent
-from gevent import monkey
 def geventDownload():
 	urls = chooseSong()
 	monkey.patch_all()
@@ -96,26 +101,38 @@ def completeInTerminal(complete,total):
 	sys.stdout.flush()
 
 #Find the folder location
-def folderDefine():
+def folderDefine(folderName,pyinstallerClean):
 	#if執行exe檔
     if getattr(sys, 'frozen', False):
         application_path = os.path.dirname(sys.executable)
-        #print('系統名稱:'+os.name)
-        if os.name == 'nt':
-            symbol = "\\"
-        else :
-            symbol = "/"
-        musicFloder_path = application_path.rpartition(symbol)[0]+'/{0}'.format("CodingMusic")
+
+		#If exe file was created by "pyinstaller XXX.py -F"        
+        if pyinstallerClean:
+        	musicFloder_path = application_path + '/{0}'.format(folderName)
+       	# created by "pyinstaller XXX.py" (without "-F" tag)
+       	else:
+            if os.name == 'nt':
+                symbol = "\\"
+            else :
+                symbol = "/"
+            musicFloder_path = application_path.rpartition(symbol)[0]+'/{0}'.format(folderName)
     #if直接執行.py檔
     elif __file__:
-        musicFloder_path = "CodingMusic" 
+        musicFloder_path = folderName 
+    if not os.path.exists(musicFloder_path):
+        os.makedirs(musicFloder_path)
+
     return musicFloder_path
 
-timeStart = time.time()
-geventDownload()
-#forloopDownload()
-timeEnd = time.time()
-print("\r\nTotal Time : %s seconds" % (timeEnd-timeStart))
+def main():
+	timeStart = time.time()
+	geventDownload()
+	#forloopDownload()
+	timeEnd = time.time()
+	print("\r\nTotal Time : {0} seconds".format(timeEnd-timeStart))
+
+if __name__ == '__main__':
+    main()
 
 if os.name == 'nt':
 	input("\n<<< Press Enter >>>")
