@@ -119,6 +119,8 @@ def folderDefine(folderName,pyinstallerClean):
     #if直接執行.py檔
     elif __file__:
         musicFloder_path = folderName 
+
+    #找不到資料夾 直接建立
     if not os.path.exists(musicFloder_path):
         os.makedirs(musicFloder_path)
 
