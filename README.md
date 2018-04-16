@@ -10,7 +10,7 @@
   + 本範例可在 Windows / macOS 環境下執行。
 
 ## :green_book: 安裝專案
-1. 本程式執行的最佳環境為：[Python3.X](https://www.python.org/downloads/)，請確認自己的 Python 版本。
+1. 本程式執行的最佳環境為：[Python3.6](https://www.python.org/downloads/)，請確認自己電腦或虛擬環境內的 Python 版本。
 
 2. Clone / Download 這個專案：
     
