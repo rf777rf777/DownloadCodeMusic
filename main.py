@@ -102,7 +102,7 @@ def completeInTerminal(complete,total):
 
 #Find the folder location
 def folderDefine(folderName,pyinstallerClean):
-	#if執行exe檔
+	#if exe file
     if getattr(sys, 'frozen', False):
         application_path = os.path.dirname(sys.executable)
 
@@ -116,11 +116,11 @@ def folderDefine(folderName,pyinstallerClean):
             else :
                 symbol = "/"
             musicFloder_path = application_path.rpartition(symbol)[0]+'/{0}'.format(folderName)
-    #if直接執行.py檔
+    #if .py file
     elif __file__:
         musicFloder_path = folderName 
 
-    #找不到資料夾 直接建立
+    #if can not find folder 
     if not os.path.exists(musicFloder_path):
         os.makedirs(musicFloder_path)
 
