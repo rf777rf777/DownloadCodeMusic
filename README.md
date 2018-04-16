@@ -28,7 +28,7 @@
 
 2. 輸入要下載的歌曲號碼後按下 Enter 鍵，不同號碼間請用 **"，"** 分隔，或輸入 **"All"** 來下載全部歌曲。
 
-![image](https://upload.cc/i1/2018/04/16/B80WAl.jpg)
+		![image](https://upload.cc/i1/2018/04/16/B80WAl.jpg)
 
 ## :books: Library or API Reference
 
