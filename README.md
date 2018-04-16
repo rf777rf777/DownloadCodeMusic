@@ -30,6 +30,10 @@
 
 	![image](https://upload.cc/i1/2018/04/16/B80WAl.jpg)
 
+3. 下載完成後會產生一個 :file_folder: **CodingMusic** ，存放剛剛下載的歌曲。
+
+	![image](https://upload.cc/i1/2018/04/16/OWZYAC.jpg)
+
 ## :books: Library or API Reference
 
 [Requests - ver2.18.4](https://pypi.python.org/pypi/requests).
