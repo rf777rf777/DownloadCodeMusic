@@ -22,11 +22,19 @@
    來安裝需要的 Packages。
 
 ## :blue_book: 使用方法
+1. 在 Terminal / Console (cmd) 輸入：
+
+        python main.py
+
+2. 輸入要下載的歌曲號碼後按下 Enter 鍵，不同號碼間請用 "，" 分隔，或輸入 "All"來下載全部歌曲
+![image](https://upload.cc/i1/2018/04/16/B80WAl.jpg)
 
 ## :books: Library or API Reference
 
 [Requests - ver2.18.4](https://pypi.python.org/pypi/requests).
+
 [BeautifulSoup - ver4.6.0](https://pypi.python.org/pypi/beautifulsoup4).
+
 [Gevent - ver1.2.2](https://pypi.python.org/pypi/gevent).
 
 ## :memo: License
